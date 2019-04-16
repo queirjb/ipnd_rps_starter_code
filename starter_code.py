@@ -15,13 +15,65 @@ class Player:
 
     def learn(self, my_move, their_move):
         pass
-
+    
+class RandomPlayer(Player):
+    def move(self):
+        throw = random.choice(moves)
+        return (throw)
 
 def beats(one, two):
     return ((one == 'rock' and two == 'scissors') or
             (one == 'scissors' and two == 'paper') or
             (one == 'paper' and two == 'rock'))
 
+class HumanPlayer:
+
+    def move(self):
+
+        throw = input('rock, paper, scissors? >')
+
+        while throw != 'rock'and throw != 'paper'and throw != 'scissors':
+            print('Sorry try again')
+            throw = input('rock, paper, scissors? >')
+        return (throw)
+    
+class ReflectPlayer:
+
+    def __init__(self):
+
+        Player.__init__(self)
+        self.learn_move = None
+
+    def move(self):
+        if self.learn_move is None:
+            throw = moves[0]                      # First move is always rock
+        else:
+            throw = self.learn_move               # next move is humanplayers
+            return (throw)                        # previous move
+
+    def learn(self, learn_move):
+
+        self.learn_move = learn_move    
+        
+ class Cycles:
+
+    def __init__(self):
+
+        Player.__init__(self)
+        self.step = 0
+
+    def move(self):
+        throw = None
+        if self.step == 0:
+            throw = moves[0]
+            self.step = self.step + 1
+        elif self.step == 1:
+            throw = moves[1]
+            self.step = self.step + 1
+        else:
+            throw = moves[2]
+            self.step = self.step + 1
+        return throw
 
 class Game:
     def __init__(self, p1, p2):
